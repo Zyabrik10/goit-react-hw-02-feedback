@@ -1,21 +1,19 @@
 import { Button } from '../Button/Button';
+import PropTypes from 'prop-types';
 
-export const FeedbackOptions = ({ onLeaveFeedback }) => (
+export const FeedbackOptions = ({ onLeaveFeedback, options }) => (
   <ul className="feedback-buttons-list global-list">
-    <li>
-      <Button mood="good" onLeaveFeedback={onLeaveFeedback}>
-        good
-      </Button>
-    </li>
-    <li>
-      <Button mood="neutral" onLeaveFeedback={onLeaveFeedback}>
-        neutral
-      </Button>
-    </li>
-    <li>
-      <Button mood="bad" onLeaveFeedback={onLeaveFeedback}>
-        bad
-      </Button>
-    </li>
+    {options.map((mood, index) => {
+      return (
+        <Button key={index} mood={mood} onLeaveFeedback={onLeaveFeedback}>
+          {mood}
+        </Button>
+      );
+    })}
   </ul>
 );
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.array,
+  onLeaveFeedback: PropTypes.func,
+};
