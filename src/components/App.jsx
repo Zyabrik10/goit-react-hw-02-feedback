@@ -18,22 +18,26 @@ export class App extends Component {
     this.total += 1;
   };
 
-  countPositiveFeedbackPercentage = () => {
+  countPositiveFeedbackPercentage = good => {
     this.positives = Number(
-      (this.total === 0 ? 0 : (this.state.good / this.total) * 100).toFixed(0)
+      (this.total === 0 ? 0 : (good / this.total) * 100).toFixed(0)
     );
   };
 
   increase = mood => {
-    this.setState({ [mood]: this.state[mood] + 1 });
+    this.setState(prev => {
+      if (mood === 'good') this.countPositiveFeedbackPercentage(prev.good + 1);
+      else this.countPositiveFeedbackPercentage(prev.good);
+
+      return { [mood]: this.state[mood] + 1 };
+    });
   };
 
-  buttonEvent = ({ target }) => {
+  buttonEvent = ({ currentTarget: target }) => {
     const mood = target.getAttribute('data-mood');
 
     this.increase(mood);
     this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
   };
 
   render() {

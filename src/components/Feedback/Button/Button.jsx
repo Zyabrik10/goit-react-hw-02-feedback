@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const Button = ({ children, mood, onLeaveFeedback }) => {
   return (
     <button
@@ -9,4 +11,10 @@ export const Button = ({ children, mood, onLeaveFeedback }) => {
       {children}
     </button>
   );
+};
+
+Button.propTypes = {
+  children: PropTypes.string,
+  mood: PropTypes.string,
+  onLeaveFeedback: PropTypes.func,
 };
